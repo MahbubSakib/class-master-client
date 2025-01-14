@@ -3,6 +3,9 @@ import { Link, NavLink } from 'react-router-dom';
 import { AuthContext } from '../provider/AuthProvider';
 import logo from '../assets/cm.png';
 import { FaAlignRight } from "react-icons/fa";
+import { IoIosLogOut } from "react-icons/io";
+import { MdDashboard } from "react-icons/md";
+
 
 
 const Navbar = () => {
@@ -54,7 +57,7 @@ const Navbar = () => {
                         {!user && (
                             <Link
                                 to="/login"
-                                className="bg-[#2B3440] px-3 py-2 rounded-md text-center text-white hover:bg-[#394455] transition duration-300"
+                                className="bg-[#2B3440] px-3 py-2 font-semibold rounded-md text-center text-white hover:bg-[#394455] transition duration-300"
                             >
                                 Login
                             </Link>
@@ -63,20 +66,12 @@ const Navbar = () => {
                     {user && (
                         <div className="dropdown dropdown-end z-50">
                             <div className="flex items-center gap-2">
-                                <div>
-                                    <button
-                                        onClick={logout}
-                                        className="bg-white px-3 py-[6px] text-black rounded-md block text-center"
-                                    >
-                                        Logout
-                                    </button>
-                                </div>
                                 <div
                                     tabIndex={0}
                                     role="button"
                                     className="btn btn-ghost btn-circle avatar"
                                 >
-                                    <div title={user?.displayName} className="w-10 rounded-full">
+                                    <div className="w-10 rounded-full">
                                         <img
                                             referrerPolicy="no-referrer"
                                             alt="User Profile Photo"
@@ -87,29 +82,37 @@ const Navbar = () => {
                             </div>
                             <ul
                                 tabIndex={0}
-                                className="menu menu-sm dropdown-content text-[#4A4A4A] mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-56"
+                                className="menu menu-sm dropdown-content text-gray-800 mt-3 z-[1] p-2 space-y-2 shadow-lg bg-white rounded-lg w-48 border border-gray-200"
                             >
-                                <li>
-                                    <Link to="/create-assignments" className="justify-between">
-                                        Create Assignments
+                                {/* User Name */}
+                                <li className="px-4 py-2 bg-gray-100 text-sm font-medium text-gray-700 rounded-t-lg cursor-default">
+                                    <div>{user?.displayName || "User"}</div>
+                                </li>
+
+
+                                {/* Dashboard Link */}
+                                <li className="hover:bg-gray-100 transition duration-200 px-4 py-2 text-sm font-medium rounded-lg">
+                                    <Link to="/dashboard" className="flex items-center space-x-2">
+                                        <MdDashboard></MdDashboard>
+                                        <span>Dashboard</span>
                                     </Link>
                                 </li>
-                                <li>
-                                    <Link to="/my-attempted-assignments">
-                                        My Attempted Assignments
-                                    </Link>
+
+                                {/* Logout Button */}
+                                <li className="hover:bg-red-100 transition duration-200 px-4 py-2 text-sm font-medium text-red-600 rounded-lg">
+                                    <button
+                                        onClick={() => {
+                                            logout();
+                                            setIsMenuOpen(false);
+                                        }}
+                                        className="w-full flex items-center space-x-2"
+                                    >
+                                        <IoIosLogOut></IoIosLogOut>
+                                        <span>Logout</span>
+                                    </button>
                                 </li>
                             </ul>
-                        </div>
-                    )}
-                    {user && (
-                        <div className="ml-3">
-                            <Link
-                                to="/pending-assignments"
-                                className="bg-white text-black px-3 py-[6px] rounded-md block text-center"
-                            >
-                                Pending Assignments
-                            </Link>
+
                         </div>
                     )}
                 </div>
@@ -127,6 +130,13 @@ const Navbar = () => {
                 {isMenuOpen && (
                     <div className="absolute top-[66px] right-10 w-3/12 mx-auto bg-primary z-40 p-4 shadow-md rounded-md lg:hidden">
                         <ul className="space-y-3">
+                            {user && (
+                                <li className="px-4 py-2 bg-gray-100 text-sm font-medium text-gray-700 rounded-t-lg cursor-default">
+                                    <div>{user?.displayName || "User"}</div>
+                                </li>
+                            )
+
+                            }
                             <li>
                                 <NavLink to="/" onClick={() => setIsMenuOpen(false)}>
                                     Home
@@ -146,18 +156,10 @@ const Navbar = () => {
                                 <>
                                     <li>
                                         <Link
-                                            to="/create-assignments"
+                                            to="/dashboard"
                                             onClick={() => setIsMenuOpen(false)}
                                         >
-                                            Create Assignments
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link
-                                            to="/my-attempted-assignments"
-                                            onClick={() => setIsMenuOpen(false)}
-                                        >
-                                            My Attempted Assignments
+                                            Dashboard
                                         </Link>
                                     </li>
                                     <li>
@@ -166,7 +168,7 @@ const Navbar = () => {
                                                 logout();
                                                 setIsMenuOpen(false);
                                             }}
-                                            className="bg-[#2B3440] px-3 py-2 rounded-md text-white w-full text-left"
+                                            className="bg-white px-3 py-2 rounded-md text-[#2B3440] w-full text-left"
                                         >
                                             Logout
                                         </button>
@@ -181,17 +183,6 @@ const Navbar = () => {
                                         className="bg-[#2B3440] px-3 py-2 rounded-md text-white w-full text-left"
                                     >
                                         Login
-                                    </Link>
-                                </li>
-                            )}
-                            {user && (
-                                <li>
-                                    <Link
-                                        to="/pending-assignments"
-                                        onClick={() => setIsMenuOpen(false)}
-                                        className="bg-white text-black px-3 py-2 rounded-md block"
-                                    >
-                                        Pending Assignments
                                     </Link>
                                 </li>
                             )}

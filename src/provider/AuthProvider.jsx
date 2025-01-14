@@ -12,7 +12,7 @@ const AuthProvider = ({ children }) => {
     const googleProvider = new GoogleAuthProvider();
     // const axiosPublic = useAxiosPublic();
 
-    const createUser = (email, password) => {
+    const createNewUser = (email, password) => {
         setLoading(true)
         return createUserWithEmailAndPassword(auth, email, password)
     }
@@ -22,21 +22,20 @@ const AuthProvider = ({ children }) => {
         return signInWithPopup(auth, googleProvider);
     }
 
-    const signIn = (email, password) => {
+    const login = (email, password) => {
         setLoading(true)
         return signInWithEmailAndPassword(auth, email, password);
     }
 
-    const logOut = () => {
+    const logout = () => {
         setLoading(true);
         return signOut(auth);
     }
 
-    const updateUserProfile = (name, photo) => {
-        return updateProfile(auth.currentUser, {
-            displayName: name, photoURL: photo
-        })
+    const updateUser = (updatedData) => {
+        return updateProfile(auth.currentUser, updatedData)
     }
+
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -47,6 +46,18 @@ const AuthProvider = ({ children }) => {
             unsubscribe();
         }
     }, []);
+
+    const authInfo = {
+        user,
+        setUser,
+        loading,
+        createNewUser,
+        login,
+        logout,
+        updateUser,
+        googleSignIn
+
+    }
 
     // useEffect(() => {
     //     const unsubscribe = onAuthStateChanged(auth, currentUser => {
@@ -72,17 +83,6 @@ const AuthProvider = ({ children }) => {
     //     }
     // }, [axiosPublic])
 
-
-    const authInfo = {
-        user,
-        loading,
-        createUser,
-        signIn,
-        logOut,
-        updateUserProfile,
-        googleSignIn
-
-    }
     return (
         <AuthContext.Provider value={authInfo}>
             {children}
