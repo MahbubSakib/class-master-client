@@ -42,7 +42,12 @@ const Navbar = () => {
                             <NavLink to="/">Home</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/assignments">Assignments</NavLink>
+                            <NavLink to="/allClasses">All Classes</NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/teachOn">
+                                Teach On Class-Master
+                            </NavLink>
                         </li>
                     </ul>
                     <div className="ml-10">
@@ -120,7 +125,7 @@ const Navbar = () => {
 
                 {/* Mobile Menu */}
                 {isMenuOpen && (
-                    <div className="absolute top-[66px] right-10 w-2/12 mx-auto bg-primary z-40 p-4 shadow-md rounded-md lg:hidden">
+                    <div className="absolute top-[66px] right-10 w-3/12 mx-auto bg-primary z-40 p-4 shadow-md rounded-md lg:hidden">
                         <ul className="space-y-3">
                             <li>
                                 <NavLink to="/" onClick={() => setIsMenuOpen(false)}>
@@ -128,8 +133,13 @@ const Navbar = () => {
                                 </NavLink>
                             </li>
                             <li>
-                                <NavLink to="/assignments" onClick={() => setIsMenuOpen(false)}>
-                                    Assignments
+                                <NavLink to="/allClasses" onClick={() => setIsMenuOpen(false)}>
+                                    All Classes
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/teachOn" onClick={() => setIsMenuOpen(false)}>
+                                    Teach On Class-Master
                                 </NavLink>
                             </li>
                             {user && (
