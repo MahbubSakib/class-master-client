@@ -9,6 +9,8 @@ import { AuthContext } from "../../provider/AuthProvider";
 import registerAnimation from "../../assets/RegistrationAnimation.json"
 import Lottie from "react-lottie";
 import auth from "../../firebase/firebase.init";
+import { useForm } from 'react-hook-form';
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const Register = () => {
     const googleProvider = new GoogleAuthProvider();
@@ -16,6 +18,7 @@ const Register = () => {
     const [error, setError] = useState('')
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
+    const axiosPublic = useAxiosPublic();
 
     const defaultOptions = {
         loop: true,
@@ -26,74 +29,92 @@ const Register = () => {
         },
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: { errors }
+    } = useForm();
 
-        const form = new FormData(e.target);
-        const name = form.get('name');
-        const email = form.get('email');
-        const photo = form.get('photo');
-        const password = form.get('password');
-        console.log(name, email, photo, password);
-
-        setError('')
-
-        const regex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
-        if (!regex.test(password)) {
-            Swal.fire({
-                title: 'Error!',
-                text: 'Password must have at least 1 upper case, 1 lower case and must have 6 characters long.',
-                icon: 'error',
-                confirmButtonText: 'Close'
-            })
-            return
-        }
-        createNewUser(email, password)
+    const onSubmit = (data) => {
+        console.log(data)
+        createNewUser(data.email, data.password)
             .then(result => {
-                const user = result.user;
-                setUser(user);
-                updateUser({ displayName: name, photoURL: photo })
-                    .then(() => {
-                        Swal.fire({
-                            title: 'Registered!',
-                            text: 'Successfully Registered',
-                            icon: 'success',
-                            confirmButtonText: 'Close'
-                        })
-                        navigate('/')
+                const loggedUser = result.user;
+                console.log(loggedUser);
+                updateUser(data.name, data.photo);
+                const userInfo = {
+                    name: data.name,
+                    email: data.email,
+                    photo: data.photoURL,
+                    role: 'student'
+                }
+                axiosPublic.post('/users', userInfo)
+                    .then(res => {
+                        if (res.data.insertedId) {
+                            reset();
+                            Swal.fire({
+                                position: "top-end",
+                                icon: "success",
+                                title: "Registered successsfully",
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            navigate('/');
+                        }
                     })
             })
-            .catch((err) => {
-                Swal.fire({
-                    title: 'Error!',
-                    text: 'There was a problem registering your account, try again.',
-                    icon: 'error',
-                    confirmButtonText: 'Close'
-                })
-            });
     }
+
     const handleGoogleLogin = () => {
         signInWithPopup(auth, googleProvider)
-            .then(() => {
-                toast.success('Registration successful!');
-                Swal.fire({
-                    title: 'Registered!',
-                    text: 'Successfully Registered',
-                    icon: 'success',
-                    confirmButtonText: 'Close'
-                })
-                navigate('/');
+            .then((result) => {
+                const loggedUser = result.user;
+                console.log(loggedUser);
+
+                // Prepare user info to save in the database
+                const userInfo = {
+                    name: loggedUser.displayName || 'Google User',
+                    email: loggedUser.email,
+                    photo: loggedUser.photoURL || '',
+                    role: 'student'
+                };
+
+                // Save user info to the /users endpoint
+                axiosPublic.post('/users', userInfo)
+                    .then((res) => {
+                        if (res.data.insertedId) {
+                            Swal.fire({
+                                position: "top-end",
+                                icon: "success",
+                                title: "Logged in successfully",
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            navigate('/');
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error saving user info:', error);
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Failed to save user details. Please try again.',
+                            icon: 'error',
+                            confirmButtonText: 'Close'
+                        });
+                    });
             })
             .catch((error) => {
-                toast.error('Error during registration: ' + error.message);
+                console.error('Error during Google login:', error);
                 Swal.fire({
                     title: 'Error!',
-                    text: 'There was a problem registering your account, try again.',
+                    text: 'There was a problem logging in. Please try again.',
                     icon: 'error',
                     confirmButtonText: 'Close'
-                })
+                });
             });
     };
+
 
     return (
         <div className="bg-[#F8F8F8] text-[#4A4A4A] min-h-screen flex items-center justify-center">
@@ -101,41 +122,59 @@ const Register = () => {
                 <div className="w-full lg:w-1/2">
                     <h2 className="text-3xl text-[#4A4A4A] font-bold text-center py-10">Register</h2>
                     <div className="card bg-base-100 max-w-sm shrink-0 shadow-2xl flex justify-center items-center w-10/12 mx-auto mb-9">
-                        <form onSubmit={handleSubmit} className="card-body">
+                        <form onSubmit={handleSubmit(onSubmit)} className="card-body">
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Name</span>
                                 </label>
-                                <input type="text" name="name" placeholder="name" className="input input-bordered" required />
+                                <input type="text" {...register("name", { required: true })} placeholder="name" className="input input-bordered" />
+                                {errors.name?.type === "required" && (
+                                    <p role="alert" className='text-red-500 mt-1'>Name is required</p>
+                                )}
+                            </div>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Photo URL</span>
+                                </label>
+                                <input type="text" {...register("photoURL", { required: true })} placeholder="photoURL" className="input input-bordered" />
+                                {errors.photoURL?.type === "required" && (
+                                    <p role="alert" className='text-red-500 mt-1'>Photo URL is required</p>
+                                )}
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Email</span>
                                 </label>
-                                <input type="email" name="email" placeholder="email" className="input input-bordered" required />
+                                <input type="email" {...register("email", { required: true })} placeholder="email" className="input input-bordered" />
+                                {errors.email?.type === "required" && (
+                                    <p role="alert" className='text-red-500 mt-1'>Email is required</p>
+                                )}
                             </div>
                             <div className="form-control">
-                                <label className="label">
-                                    <span className="label-text">Photo-URL</span>
-                                </label>
-                                <input type="text" name="photo" placeholder="photo-url" className="input input-bordered" required />
-                            </div>
-                            <div className="form-control relative">
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
                                 <input
-                                    type={showPassword ? 'text' : 'password'}
-                                    name="password" placeholder="password" className="input input-bordered" required />
-                                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 bottom-4">
-                                    {showPassword ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>}
-                                </button>
+                                    type="password"
+                                    {...register("password", {
+                                        required: "Password is required",
+                                        minLength: { value: 6, message: "Password must be at least 6 characters long" },
+                                        maxLength: { value: 20, message: "Password must not exceed 20 characters" },
+                                        pattern: {
+                                            value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).+$/,
+                                            message: "Password must include at least one uppercase, one lowercase, and one number"
+                                        }
+                                    })}
+                                    placeholder="password"
+                                    className="input input-bordered"
+                                />
+                                {errors.password && (
+                                    <p role="alert" className="text-red-500 mt-1">{errors.password.message}</p>
+                                )}
+                                <label className="label">
+                                    <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+                                </label>
                             </div>
-                            {
-                                error && (
-                                    <p className="text-sm text-red-500">{error}</p>
-                                )
-                            }
                             <div className="form-control mt-6">
                                 <button type="submit" className="btn bg-primary text-white hover:bg-[#e0891a]">Register</button>
                             </div>
