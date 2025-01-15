@@ -1,82 +1,43 @@
 import React from 'react';
-import { FaAccusoft, FaBook, FaCalendar, FaEnvelope, FaHome, FaList, FaShoppingCart, FaUser, FaUtensils } from 'react-icons/fa';
+import { FaAccusoft, FaBook, FaCalendar, FaEnvelope, FaHome, FaList, FaShoppingCart, FaUser, FaUsers, FaUtensils } from 'react-icons/fa';
+import { MdApproval } from "react-icons/md";
 import { NavLink, Outlet } from 'react-router-dom';
 // import useCart from '../hooks/useCart';
 import useAdmin from '../hooks/useAdmin';
+import useUserRole from '../hooks/useUserRole';
 
 const Dashboard = () => {
     // const [cart] = useCart();
     // get isAdmin value from database
-    const [isAdmin] = useAdmin();
+    const [userRole, isRoleLoading] = useUserRole();
     return (
         <div className='flex w-10/12'>
             <div className='w-64 min-h-screen bg-orange-400'>
                 <ul className='menu p-4'>
-                    {
-                        isAdmin ? <>
-                            <li>
-                                <NavLink to={'/dashboard/adminHome'}>
-                                    <FaHome></FaHome>
-                                    Admin Home
-                                </NavLink>
-                            </li>
-                            <li>
-                                <NavLink to={'/dashboard/addItems'}>
-                                    <FaUtensils></FaUtensils>
-                                    Add Items
-                                </NavLink>
-                            </li>
-                            <li>
-                                <NavLink to={'/dashboard/manageItems'}>
-                                    <FaList></FaList>
-                                    Manage Items
-                                </NavLink>
-                            </li>
-                            <li>
-                                <NavLink to={'/dashboard/manageBookings'}>
-                                    <FaBook></FaBook>
-                                    Manage Bookings
-                                </NavLink>
-                            </li>
-                            <li>
-                                <NavLink to={'/dashboard/users'}>
-                                    <FaUser></FaUser>
-                                    All Users
-                                </NavLink>
-                            </li>
-                        </> : <>
-                            <li>
-                                <NavLink to={'/dashboard/userHome'}>
-                                    <FaHome></FaHome>
-                                    User Home
-                                </NavLink>
-                            </li>
-                            <li>
-                                <NavLink to={'/dashboard/reservation'}>
-                                    <FaCalendar></FaCalendar>
-                                    Reservation
-                                </NavLink>
-                            </li>
-                            <li>
-                                <NavLink to={'/dashboard/cart'}>
-                                    <FaShoppingCart></FaShoppingCart>
-                                    My Cart
-                                </NavLink>
-                            </li>
-                            <li>
-                                <NavLink to={'/dashboard/review'}>
-                                    <FaAccusoft></FaAccusoft>
-                                    Add a Review
-                                </NavLink>
-                            </li>
-                            <li>
-                                <NavLink to={'/dashboard/bookings'}>
-                                    <FaList></FaList>
-                                    My Bookings
-                                </NavLink>
-                            </li>
-                        </>
-                    }
+                    {userRole === "admin" && (
+                        <li>
+                            <NavLink to={'/dashboard/teachersRequest'}>
+                                <MdApproval />
+                                Teachers Request
+                            </NavLink>
+                        </li>
+                    )}
+                    {userRole === "teacher" && (
+                        <li>
+                            <NavLink to={'/dashboard/teacherHome'}>
+                                <FaHome />
+                                Add Class
+                            </NavLink>
+                        </li>
+                    )}
+                    {userRole === "student" && (
+                        <li>
+                            <NavLink to={'/dashboard/studentHome'}>
+                                <FaHome />
+                                My Enroll Classes
+                            </NavLink>
+                        </li>
+                    )}
 
 
                     <div className='divider'></div>

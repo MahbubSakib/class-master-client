@@ -7,6 +7,8 @@ import Login from "../pages/Login/Login";
 import Register from "../pages/Register/Register";
 import PrivateRoute from "./PrivateRoute";
 import Dashboard from "../layouts/Dashboard";
+import AdminRoute from "./AdminRoute";
+import TeachersRequest from "../pages/Dashboard/Admin/TeachersRequest";
 
 const Router = createBrowserRouter([
     {
@@ -33,10 +35,10 @@ const Router = createBrowserRouter([
         element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
         children: [
             // admin route
-            // {
-            //     path: '/dashboard/addItems',
-            //     element: <AdminRoute><AddItems></AddItems></AdminRoute>
-            // },
+            {
+                path: '/dashboard/teachersRequest',
+                element: <AdminRoute><TeachersRequest></TeachersRequest></AdminRoute>
+            },
             // {
             //     path: 'users',
             //     element: <AllUsers></AllUsers>
