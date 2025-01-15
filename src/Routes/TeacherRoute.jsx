@@ -13,7 +13,7 @@ const TeacherRoute = ({ children }) => {
         return <Loader />;
     }
 
-    // Ensure only users with the "teacher" role (not admin or student) can access
+    // Explicitly check if the role is "teacher"
     if (user && userRole === "teacher") {
         return children;
     }

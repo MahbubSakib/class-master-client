@@ -24,7 +24,7 @@ const Dashboard = () => {
                     )}
                     {userRole === "teacher" && (
                         <li>
-                            <NavLink to={'/dashboard/teacherHome'}>
+                            <NavLink to={'/dashboard/addClass'}>
                                 <FaHome />
                                 Add Class
                             </NavLink>
@@ -32,9 +32,9 @@ const Dashboard = () => {
                     )}
                     {userRole === "student" && (
                         <li>
-                            <NavLink to={'/dashboard/studentHome'}>
+                            <NavLink to={'/dashboard/myEnrollClass'}>
                                 <FaHome />
-                                My Enroll Classes
+                                My Enroll Class
                             </NavLink>
                         </li>
                     )}
