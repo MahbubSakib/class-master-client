@@ -37,34 +37,69 @@ const Register = () => {
     } = useForm();
 
     const onSubmit = (data) => {
-        console.log(data)
+        console.log(data);
+
+        const photoURL = data.photoURL
+
         createNewUser(data.email, data.password)
-            .then(result => {
+            .then((result) => {
                 const loggedUser = result.user;
                 console.log(loggedUser);
-                updateUser(data.name, data.photo);
-                const userInfo = {
-                    name: data.name,
-                    email: data.email,
-                    photo: data.photoURL,
-                    role: 'student'
-                }
-                axiosPublic.post('/users', userInfo)
-                    .then(res => {
-                        if (res.data.insertedId) {
-                            reset();
-                            Swal.fire({
-                                position: "top-end",
-                                icon: "success",
-                                title: "Registered successsfully",
-                                showConfirmButton: false,
-                                timer: 1500
+
+                updateUser(data.name, photoURL)
+                    .then(() => {
+                        const userInfo = {
+                            name: data.name,
+                            email: data.email,
+                            photo: photoURL,
+                            role: 'student',
+                        };
+
+                        axiosPublic.post('/users', userInfo)
+                            .then((res) => {
+                                if (res.data.insertedId) {
+                                    reset();
+                                    Swal.fire({
+                                        position: 'top-end',
+                                        icon: 'success',
+                                        title: 'Registered successfully',
+                                        showConfirmButton: false,
+                                        timer: 1500,
+                                    });
+                                    navigate('/');
+                                }
+                            })
+                            .catch((error) => {
+                                console.error('Error saving user info:', error);
+                                Swal.fire({
+                                    title: 'Error!',
+                                    text: 'Failed to save user information. Please try again.',
+                                    icon: 'error',
+                                    confirmButtonText: 'Close',
+                                });
                             });
-                            navigate('/');
-                        }
                     })
+                    .catch((error) => {
+                        console.error('Error updating user profile:', error);
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Failed to update user profile. Please try again.',
+                            icon: 'error',
+                            confirmButtonText: 'Close',
+                        });
+                    });
             })
-    }
+            .catch((error) => {
+                console.error('Error creating new user:', error);
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Failed to create a new account. Please try again.',
+                    icon: 'error',
+                    confirmButtonText: 'Close',
+                });
+            });
+    };
+
 
     const handleGoogleLogin = () => {
         signInWithPopup(auth, googleProvider)
