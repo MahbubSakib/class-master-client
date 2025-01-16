@@ -33,7 +33,7 @@ const Navbar = () => {
                 {/* Logo Section */}
                 <div className="flex-1">
                     <Link to="/" className="flex gap-2 items-center">
-                        <img className="w-auto h-7" src={logo} alt="" />
+                        <img className="w-auto h-7 rounded-full" src={logo} alt="" />
                         <span className="font-bold text-xl">ClassMaster</span>
                     </Link>
                 </div>
@@ -48,7 +48,7 @@ const Navbar = () => {
                             <NavLink to="/allClasses">All Classes</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/teachOn">
+                            <NavLink to="/teachOnClassMaster">
                                 Teach On Class-Master
                             </NavLink>
                         </li>
@@ -148,7 +148,7 @@ const Navbar = () => {
                                 </NavLink>
                             </li>
                             <li>
-                                <NavLink to="/teachOn" onClick={() => setIsMenuOpen(false)}>
+                                <NavLink to="/teachOnClassMaster" onClick={() => setIsMenuOpen(false)}>
                                     Teach On Class-Master
                                 </NavLink>
                             </li>

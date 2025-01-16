@@ -6,7 +6,7 @@ const Footer = () => {
             <footer className="footer bg-base-200 text-base-content p-10">
                 <div className='w-10/12 mx-auto flex justify-between'>
                     <aside>
-                        <img className="w-20" src={logo} />
+                        <img className="w-20 rounded-full" src={logo} />
                         <p>
                             ACME Industries Ltd.
                             <br />

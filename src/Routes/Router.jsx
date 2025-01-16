@@ -9,6 +9,11 @@ import PrivateRoute from "./PrivateRoute";
 import Dashboard from "../layouts/Dashboard";
 import AdminRoute from "./AdminRoute";
 import TeachersRequest from "../pages/Dashboard/Admin/TeachersRequest";
+import TeacherRoute from "./TeacherRoute";
+import StudentRoute from "./StudentRoute";
+import AddClass from "../pages/Dashboard/Teacher/AddClass";
+import MyEnrollClass from "../pages/Dashboard/Student/MyEnrollClass";
+import TeachOnClassMaster from "../pages/TeachOnClassMaster/TeachOnClassMaster";
 
 const Router = createBrowserRouter([
     {
@@ -18,6 +23,10 @@ const Router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home></Home>
+            },
+            {
+                path: '/teachOnClassMaster',
+                element: <PrivateRoute><TeachOnClassMaster></TeachOnClassMaster></PrivateRoute>
             },
             {
                 path: '/login',
@@ -39,10 +48,19 @@ const Router = createBrowserRouter([
                 path: '/dashboard/teachersRequest',
                 element: <AdminRoute><TeachersRequest></TeachersRequest></AdminRoute>
             },
-            // {
-            //     path: 'users',
-            //     element: <AllUsers></AllUsers>
-            // }
+
+            // teacher route
+            {
+                path: '/dashboard/addClass',
+                element: <TeacherRoute><AddClass></AddClass></TeacherRoute>
+            },
+
+            // student route
+            {
+                path: '/dashboard/myEnrollClass',
+                element: <StudentRoute><MyEnrollClass></MyEnrollClass></StudentRoute>
+            },
+            
         ]
     }
 ]);
