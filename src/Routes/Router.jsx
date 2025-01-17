@@ -14,6 +14,7 @@ import StudentRoute from "./StudentRoute";
 import AddClass from "../pages/Dashboard/Teacher/AddClass";
 import MyEnrollClass from "../pages/Dashboard/Student/MyEnrollClass";
 import TeachOnClassMaster from "../pages/TeachOnClassMaster/TeachOnClassMaster";
+import Users from "../pages/Dashboard/Admin/Users";
 
 const Router = createBrowserRouter([
     {
@@ -47,6 +48,10 @@ const Router = createBrowserRouter([
             {
                 path: '/dashboard/teachersRequest',
                 element: <AdminRoute><TeachersRequest></TeachersRequest></AdminRoute>
+            },
+            {
+                path: '/dashboard/users',
+                element: <AdminRoute><Users></Users></AdminRoute>
             },
 
             // teacher route

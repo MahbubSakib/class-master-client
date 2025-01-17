@@ -11,7 +11,7 @@ const Dashboard = () => {
     // get isAdmin value from database
     const [userRole, isRoleLoading] = useUserRole();
     return (
-        <div className='flex w-10/12'>
+        <div className='flex w-11/12'>
             <div className='w-64 min-h-screen bg-orange-400'>
                 <ul className='menu p-4'>
                     {userRole === "admin" && (
