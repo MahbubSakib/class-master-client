@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import { FaTrashAlt, FaUser, FaUsers } from 'react-icons/fa';
@@ -6,17 +6,28 @@ import Swal from 'sweetalert2';
 
 const Users = () => {
     const axiosSecure = useAxiosSecure();
+    const [searchQuery, setSearchQuery] = useState('');
+
     const { data: users = [], refetch } = useQuery({
-        queryKey: ['users'],
+        queryKey: ['users', searchQuery],
         queryFn: async () => {
             const res = await axiosSecure.get('/users', {
+                params: {
+                    name: searchQuery, // Pass search query for name
+                    email: searchQuery, // Pass search query for email
+                },
                 headers: {
-                    authorization: `Bearer ${localStorage.getItem('access-token')}`
-                }
+                    authorization: `Bearer ${localStorage.getItem('access-token')}`,
+                },
             });
             return res.data;
-        }
+        },
     });
+
+    const handleSearch = (e) => {
+        setSearchQuery(e.target.value); // Update search input
+        refetch(); // Trigger re-fetch with the updated query
+    };
 
     const handleMakeAdmin = user => {
         Swal.fire({
@@ -56,9 +67,18 @@ const Users = () => {
 
     return (
         <div>
-            <div className='flex justify-evenly my-5'>
-                <h3 className='text-3xl'>All Users</h3>
-                <h3 className='text-3xl'>Total Users: {users.length}</h3>
+            <div className="flex justify-between items-center my-5">
+                <h3 className="text-3xl">All Users</h3>
+                <h3 className="text-3xl">Total Users: {users.length}</h3>
+            </div>
+            <div className="mb-4">
+                <input
+                    type="text"
+                    placeholder="Search by name or email"
+                    value={searchQuery}
+                    onChange={handleSearch}
+                    className="border p-2 rounded-lg"
+                />
             </div>
             <div>
                 <div className="overflow-x-auto">
@@ -74,30 +94,37 @@ const Users = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {
-                                users.map((user, index) => <tr key={user._id}>
+                            {users.map((user, index) => (
+                                <tr key={user._id}>
                                     <th>{index + 1}</th>
                                     <td>{user.name}</td>
                                     <td>{user.email}</td>
                                     <td>
-                                        {user.role === 'admin' ?
+                                        {user.role === 'admin' ? (
                                             <button
                                                 className="px-3 py-1 bg-[#d97706] text-white text-sm rounded-lg shadow hover:bg-[#d94506] transition opacity-50 cursor-not-allowed"
                                                 disabled
                                             >
                                                 Make Admin
                                             </button>
-                                            :
-                                            <button onClick={() => handleMakeAdmin(user)} className="px-3 py-1 text-white text-sm rounded-lg shadow bg-[#d97706] hover:bg-[#d94506]">
+                                        ) : (
+                                            <button
+                                                onClick={() => handleMakeAdmin(user)}
+                                                className="px-3 py-1 text-white text-sm rounded-lg shadow bg-[#d97706] hover:bg-[#d94506]"
+                                            >
                                                 Make Admin
-                                            </button>}
+                                            </button>
+                                        )}
                                     </td>
                                     <td>
-                                        <img className='w-12 rounded-full' src={user.photo} alt="User Image" />
+                                        <img
+                                            className="w-12 rounded-full"
+                                            src={user.photo}
+                                            alt="User"
+                                        />
                                     </td>
-                                </tr>)
-                            }
-
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>
