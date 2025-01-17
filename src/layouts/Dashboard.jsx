@@ -34,6 +34,12 @@ const Dashboard = () => {
                                     All Classes
                                 </NavLink>
                             </li>
+                            <li>
+                                <NavLink to={'/dashboard/adminProfile'}>
+                                    <FaBook></FaBook>
+                                    Profile
+                                </NavLink>
+                            </li>
 
                         </>
 
@@ -62,12 +68,7 @@ const Dashboard = () => {
                             </NavLink>
                         </li>
                     )}
-                    <li>
-                        <NavLink to={'/dashboard/profile'}>
-                            <FaBook></FaBook>
-                            Profile
-                        </NavLink>
-                    </li>
+
 
 
                     <div className='divider'></div>
