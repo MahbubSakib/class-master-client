@@ -37,7 +37,7 @@ const Dashboard = () => {
                             <li>
                                 <NavLink to={'/dashboard/adminProfile'}>
                                     <FaBook></FaBook>
-                                    Profile
+                                    My Profile
                                 </NavLink>
                             </li>
 
@@ -58,15 +58,31 @@ const Dashboard = () => {
                                     My Class
                                 </NavLink>
                             </li>
+                            <li>
+                                <NavLink to={'/dashboard/teacherProfile'}>
+                                    <FaBook></FaBook>
+                                    My Profile
+                                </NavLink>
+                            </li>
                         </>
                     )}
                     {userRole === "student" && (
-                        <li>
-                            <NavLink to={'/dashboard/myEnrollClass'}>
-                                <FaSchool></FaSchool>
-                                My Enroll Class
-                            </NavLink>
-                        </li>
+                        <>
+                            <li>
+                                <NavLink to={'/dashboard/myEnrollClass'}>
+                                    <FaSchool></FaSchool>
+                                    My Enroll Class
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to={'/dashboard/studentProfile'}>
+                                    <FaBook></FaBook>
+                                    My Profile
+                                </NavLink>
+                            </li>
+                        </>
+
+
                     )}
 
 

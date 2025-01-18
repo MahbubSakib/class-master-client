@@ -16,6 +16,9 @@ import MyEnrollClass from "../pages/Dashboard/Student/MyEnrollClass";
 import TeachOnClassMaster from "../pages/TeachOnClassMaster/TeachOnClassMaster";
 import Users from "../pages/Dashboard/Admin/Users";
 import MyProfile from "../pages/Dashboard/Admin/MyProfile";
+import MyClass from "../pages/Dashboard/Teacher/MyClass";
+import TeacherProfile from "../pages/Dashboard/Teacher/TeacherProfile";
+import AllClasses from "../pages/Dashboard/Admin/AllClasses";
 
 const Router = createBrowserRouter([
     {
@@ -55,6 +58,10 @@ const Router = createBrowserRouter([
                 element: <AdminRoute><Users></Users></AdminRoute>
             },
             {
+                path: '/dashboard/allClasses',
+                element: <AdminRoute><AllClasses></AllClasses></AdminRoute>
+            },
+            {
                 path: '/dashboard/adminProfile',
                 element: <AdminRoute><MyProfile></MyProfile></AdminRoute>
             },
@@ -63,6 +70,14 @@ const Router = createBrowserRouter([
             {
                 path: '/dashboard/addClass',
                 element: <TeacherRoute><AddClass></AddClass></TeacherRoute>
+            },
+            {
+                path: '/dashboard/myClass',
+                element: <TeacherRoute><MyClass></MyClass></TeacherRoute>
+            },
+            {
+                path: '/dashboard/teacherProfile',
+                element: <TeacherRoute><TeacherProfile></TeacherProfile></TeacherRoute>
             },
 
             // student route
