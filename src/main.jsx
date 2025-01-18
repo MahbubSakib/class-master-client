@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import Router from './Routes/Router';
 import AuthProvider from './provider/AuthProvider';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import {
   QueryClient,
   QueryClientProvider,
