@@ -1,6 +1,7 @@
 import React from 'react';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
+import { Link } from 'react-router-dom';
 
 const AllApprovedClasses = () => {
     const axiosPublic = useAxiosPublic();
@@ -57,7 +58,9 @@ const AllApprovedClasses = () => {
                                 <span className="font-bold">Status:</span> {item.status || 'Pending'}
                             </p>
                         </div>
-                        <button className='btn w-full mt-5'>Enroll</button>
+                        <Link to={`/class/${item._id}`}>
+                            <button className='btn w-full mt-5 bg-primary'>Enroll</button>
+                        </Link>
                     </div>
                 </div>)
             }

@@ -2,6 +2,7 @@ import React from 'react';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 const AllClasses = () => {
     const axiosPublic = useAxiosPublic();
@@ -94,7 +95,10 @@ const AllClasses = () => {
                                         className="btn btn-secondary"
                                         disabled={item.status !== 'approved'}
                                     >
-                                        {item.status === 'approved' ? 'Progress' : item.status === 'rejected' ? 'Rejected' : 'Pending'}
+                                        <Link to={`/dashboard/myClass/${item._id}`}>
+                                            {item.status === 'approved' ? 'Progress' : item.status === 'rejected' ? 'Rejected' : 'Pending'}
+                                        </Link>
+
                                     </button>
                                 </td>
 
