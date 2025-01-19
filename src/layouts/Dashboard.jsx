@@ -94,12 +94,6 @@ const Dashboard = () => {
                             Home
                         </NavLink>
                     </li>
-                    <li>
-                        <NavLink to={'/'}>
-                            <FaEnvelope></FaEnvelope>
-                            Contact
-                        </NavLink>
-                    </li>
                 </ul>
             </div>
             <div className='flex-1 p-8'>

@@ -159,8 +159,11 @@ const MyClass = () => {
                             className="btn btn-error btn-sm">
                             <i className="fas fa-trash-alt px-2"></i>
                         </button>
-                        <button className="btn btn-secondary btn-sm">
-                            <i className="fas fa-eye px-2"></i>
+                        <button
+                            className="btn btn-secondary btn-sm"
+                            disabled={item.status !== 'approved'}
+                        >
+                            {item.status === 'approved' ? <i className="fas fa-eye px-2"></i> : <i className="fas fa-eye px-2"></i>}
                         </button>
                     </div>
                 </div>
