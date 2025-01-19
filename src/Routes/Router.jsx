@@ -20,6 +20,7 @@ import MyClass from "../pages/Dashboard/Teacher/MyClass";
 import TeacherProfile from "../pages/Dashboard/Teacher/TeacherProfile";
 import AllClasses from "../pages/Dashboard/Admin/AllClasses";
 import AllApprovedClasses from "../pages/AllApprovedClasses/AllApprovedClasses";
+import ClassDetails from "../pages/Dashboard/Teacher/ClassDetails";
 
 const Router = createBrowserRouter([
     {
@@ -79,6 +80,10 @@ const Router = createBrowserRouter([
             {
                 path: '/dashboard/myClass',
                 element: <TeacherRoute><MyClass></MyClass></TeacherRoute>
+            },
+            {
+                path: '/dashboard/myClass/:id',
+                element: <TeacherRoute><ClassDetails></ClassDetails></TeacherRoute>
             },
             {
                 path: '/dashboard/teacherProfile',

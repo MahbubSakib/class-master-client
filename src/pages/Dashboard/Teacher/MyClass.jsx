@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import { AuthContext } from '../../../provider/AuthProvider';
+import { Link } from 'react-router-dom';
 
 const MyClass = () => {
     const axiosSecure = useAxiosSecure();
@@ -159,12 +160,17 @@ const MyClass = () => {
                             className="btn btn-error btn-sm">
                             <i className="fas fa-trash-alt px-2"></i>
                         </button>
+
                         <button
                             className="btn btn-secondary btn-sm"
                             disabled={item.status !== 'approved'}
                         >
-                            {item.status === 'approved' ? <i className="fas fa-eye px-2"></i> : <i className="fas fa-eye px-2"></i>}
+                            <Link to={`/dashboard/myClass/${item._id}`}>
+                                <i className="fas fa-eye px-2"></i>
+                            </Link>
                         </button>
+
+
                     </div>
                 </div>
             ))}
