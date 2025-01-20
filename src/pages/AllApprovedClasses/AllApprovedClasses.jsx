@@ -17,7 +17,7 @@ const AllApprovedClasses = () => {
     return (
         <div className='my-10 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 w-10/12 mx-auto'>
             {
-                allApprovedClasses.map(item => <div className="card bg-base-100 shadow-xl">
+                allApprovedClasses.map(item => <div key={item._id} className="card bg-base-100 shadow-xl">
                     <figure>
                         <img
                             className="h-60 w-full object-cover"
