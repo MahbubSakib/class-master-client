@@ -21,7 +21,7 @@ const MyEnrollClass = () => {
                     <div className="mt-4">
                         <h3 className="text-xl font-bold">{classItem.title}</h3>
                         <p className="text-gray-600">Instructor: {classItem.name}</p>
-                        <Link to={`/class-details/${classItem._id}`}>
+                        <Link to={`/dashboard/myEnrollClass/${classItem._id}`}>
                             <button className="btn bg-primary text-white mt-4">Continue</button>
                         </Link>
                     </div>

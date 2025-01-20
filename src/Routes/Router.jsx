@@ -23,6 +23,7 @@ import AllApprovedClasses from "../pages/AllApprovedClasses/AllApprovedClasses";
 import ClassDetails from "../pages/Dashboard/Teacher/ClassDetails";
 import ClassEnrollDetails from "../pages/ClassEnrollDetails/ClassEnrollDetails";
 import Payment from "../pages/Payment/Payment";
+import MyEnrollClassDetails from "../pages/Dashboard/Student/MyEnrolledClassDetails";
 
 const Router = createBrowserRouter([
     {
@@ -104,6 +105,10 @@ const Router = createBrowserRouter([
             {
                 path: '/dashboard/myEnrollClass',
                 element: <StudentRoute><MyEnrollClass></MyEnrollClass></StudentRoute>
+            },
+            {
+                path: '/dashboard/myEnrollClass/:id',
+                element: <StudentRoute><MyEnrollClassDetails></MyEnrollClassDetails></StudentRoute>
             },
 
         ]
