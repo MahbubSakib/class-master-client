@@ -22,6 +22,7 @@ import AllClasses from "../pages/Dashboard/Admin/AllClasses";
 import AllApprovedClasses from "../pages/AllApprovedClasses/AllApprovedClasses";
 import ClassDetails from "../pages/Dashboard/Teacher/ClassDetails";
 import ClassEnrollDetails from "../pages/ClassEnrollDetails/ClassEnrollDetails";
+import Payment from "../pages/Payment/Payment";
 
 const Router = createBrowserRouter([
     {
@@ -43,6 +44,10 @@ const Router = createBrowserRouter([
             {
                 path: '/teachOnClassMaster',
                 element: <PrivateRoute><TeachOnClassMaster></TeachOnClassMaster></PrivateRoute>
+            },
+            {
+                path: '/payment/:id',
+                element: <PrivateRoute><Payment></Payment></PrivateRoute>
             },
             {
                 path: '/login',

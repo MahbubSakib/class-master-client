@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const ClassEnrollDetails = () => {
     const { id } = useParams();
@@ -27,9 +27,13 @@ const ClassEnrollDetails = () => {
                             <p className="text-lg font-semibold text-gray-700">Price: <span className="font-normal">${classDetails.price}</span></p>
                             <p className="text-lg font-semibold text-gray-700">Enrolled: <span className="font-normal">-</span></p>
                             <p className="text-lg font-semibold text-gray-700">Description: <span className="font-normal">{classDetails.description}</span></p>
-                            <button className="bg-primary text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-600 transition">
-                                Enroll
-                            </button>
+
+                            <Link to={`/payment/${classDetails._id}`}>
+                                <button className="bg-primary w-full text-white px-6 py-2 rounded-lg shadow-md hover:bg-[#d96606] transition">
+                                    Enroll
+                                </button>
+                            </Link>
+
                         </div>
                     </div>
                 </div>
