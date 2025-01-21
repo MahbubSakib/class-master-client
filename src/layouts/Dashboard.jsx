@@ -1,19 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FaAccusoft, FaBook, FaCalendar, FaClipboard, FaEnvelope, FaEnvelopeSquare, FaEnvira, FaHome, FaHourglass, FaList, FaMemory, FaSchool, FaShoppingCart, FaSymfony, FaUser, FaUsers, FaUtensils } from 'react-icons/fa';
 import { MdApproval } from "react-icons/md";
 import { NavLink, Outlet } from 'react-router-dom';
 // import useCart from '../hooks/useCart';
 import useAdmin from '../hooks/useAdmin';
 import useUserRole from '../hooks/useUserRole';
+import { AuthContext } from '../provider/AuthProvider';
 
 const Dashboard = () => {
-    // const [cart] = useCart();
+    const {user} = useContext(AuthContext);
     // get isAdmin value from database
     const [userRole, isRoleLoading] = useUserRole();
     return (
         <div className='flex w-11/12'>
             <div className='w-64 min-h-screen bg-orange-400'>
-                <ul className='menu p-4'>
+                <ul className='menu p-4 mt-4 space-y-3'>
                     {userRole === "admin" && (
                         <>
                             <li>
@@ -96,10 +97,12 @@ const Dashboard = () => {
                     </li>
                 </ul>
             </div>
-            <div className='flex-1 p-8'>
+            <div className='flex-1 pl-8 pt-2'>
                 <Outlet>
 
                 </Outlet>
+                <h2 className='text-center pl-8 pt-2 text-4xl font-bold'>Hi! {user.displayName}</h2>
+                 <p className='text-center mt-5 text-xl'>Welcome to Your Dashboard. This is your central hub to efficiently manage all your data and activities.</p>       
             </div>
         </div>
     );

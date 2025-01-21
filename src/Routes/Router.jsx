@@ -24,6 +24,7 @@ import ClassDetails from "../pages/Dashboard/Teacher/ClassDetails";
 import ClassEnrollDetails from "../pages/ClassEnrollDetails/ClassEnrollDetails";
 import Payment from "../pages/Payment/Payment";
 import MyEnrollClassDetails from "../pages/Dashboard/Student/MyEnrolledClassDetails";
+import StudentProfile from "../pages/Dashboard/Student/StudentProfile";
 
 const Router = createBrowserRouter([
     {
@@ -98,13 +99,17 @@ const Router = createBrowserRouter([
             },
             {
                 path: '/dashboard/teacherProfile',
-                element: <TeacherRoute><TeacherProfile></TeacherProfile></TeacherRoute>
+                element: <TeacherRoute><MyProfile></MyProfile></TeacherRoute>
             },
 
             // student route
             {
                 path: '/dashboard/myEnrollClass',
                 element: <StudentRoute><MyEnrollClass></MyEnrollClass></StudentRoute>
+            },
+            {
+                path: '/dashboard/studentProfile',
+                element: <StudentRoute><MyProfile></MyProfile></StudentRoute>
             },
             {
                 path: '/dashboard/myEnrollClass/:id',
