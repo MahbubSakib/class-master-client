@@ -27,6 +27,8 @@ import MyEnrollClassDetails from "../pages/Dashboard/Student/MyEnrolledClassDeta
 import StudentProfile from "../pages/Dashboard/Student/StudentProfile";
 import Welcome from "../pages/Dashboard/Welcome";
 import Error404 from "../pages/Error/Error404";
+import AboutUs from "../pages/About/AboutUs";
+import ContactUs from "../pages/Contact/ContactUs";
 
 const Router = createBrowserRouter([
     {
@@ -61,6 +63,14 @@ const Router = createBrowserRouter([
                 path: '/register',
                 element: <Register></Register>
             },
+            {
+                path: '/about-us',
+                element: <AboutUs></AboutUs>
+            },
+            {
+                path: 'contact-us',
+                element: <ContactUs></ContactUs>
+            }
         ]
 
     },

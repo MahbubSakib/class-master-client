@@ -77,7 +77,7 @@ const FeedbackCarousel = () => {
 
                     <div className="flex justify-between mt-6">
                         <button
-                            className="px-4 py-2 bg-primary text-white rounded-lg"
+                            className="px-4 py-2 bg-primary text-white rounded-lg text-2xl"
                             onClick={handlePrev}
                         >
                             <MdSkipPrevious></MdSkipPrevious>
