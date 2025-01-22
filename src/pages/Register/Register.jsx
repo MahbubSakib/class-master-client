@@ -206,9 +206,9 @@ const Register = () => {
                                 {errors.password && (
                                     <p role="alert" className="text-red-500 mt-1">{errors.password.message}</p>
                                 )}
-                                <label className="label">
+                                {/* <label className="label">
                                     <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
-                                </label>
+                                </label> */}
                             </div>
                             <div className="form-control mt-6">
                                 <button type="submit" className="btn bg-primary text-white hover:bg-[#e0891a]">Register</button>
