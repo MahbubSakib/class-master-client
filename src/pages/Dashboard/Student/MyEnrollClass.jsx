@@ -10,8 +10,8 @@ const MyEnrollClass = () => {
     }
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {enrolledClasses.map((classItem) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-5">
+            {enrolledClasses.length ? enrolledClasses.map((classItem) => (
                 <div key={classItem._id} className="card bg-white shadow-lg rounded-md p-4">
                     <img
                         src={classItem.image}
@@ -26,7 +26,9 @@ const MyEnrollClass = () => {
                         </Link>
                     </div>
                 </div>
-            ))}
+            )) : <>
+                <p className='text-2xl font-semibold text-center'>No Enrollment</p>
+            </>}
         </div>
     );
 };

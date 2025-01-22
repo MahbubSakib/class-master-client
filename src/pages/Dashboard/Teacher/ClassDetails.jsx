@@ -146,7 +146,7 @@ const ClassDetails = () => {
                         </thead>
                         <tbody>
                             {
-                                assignments.map((assignment, index) => <tr>
+                                assignments.map((assignment, index) => <tr key={assignment._id}>
                                     <th>{index + 1}</th>
                                     <td>{assignment.title}</td>
                                     <td>{assignment.description}</td>

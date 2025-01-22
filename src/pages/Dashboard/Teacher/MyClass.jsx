@@ -85,7 +85,7 @@ const MyClass = () => {
 
     return (
         <div className='mt-10 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2'>
-            {myClass.map(item => (
+            {myClass.length ? myClass.map(item => (
                 <div className="card card-compact bg-base-100 shadow-xl border-2 border-gray-400 p-4" key={item._id}>
                     {/* Image */}
                     <figure>
@@ -173,7 +173,9 @@ const MyClass = () => {
 
                     </div>
                 </div>
-            ))}
+            )) : <>
+                <p className='text-2xl font-semibold mx-auto'>No class published yet</p>
+            </>}
 
             {/* Update Modal */}
             {isModalOpen && selectedClass && (

@@ -8,13 +8,13 @@ import Loader from '../../components/Loader';
 import Swal from 'sweetalert2';
 
 const TeachOnClassMaster = () => {
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit, reset } = useForm()
     const { user } = useContext(AuthContext);
     const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
 
     const { data: requestStatus, refetch } = useQuery({
-        queryKey: ['teacherRequestStatus', user?.email], // Query key
+        queryKey: ['teacherRequestStatus', user?.email],
         queryFn: async () => {
             if (!user?.email) return null;
             const res = await axiosPublic.get(`/teachersRequest?email=${user.email}`);
@@ -23,6 +23,7 @@ const TeachOnClassMaster = () => {
         enabled: !!user?.email, // Only run if user email exists
     });
 
+    // submit for review
     const onSubmit = async (data) => {
         try {
             const requestData = {
@@ -32,34 +33,71 @@ const TeachOnClassMaster = () => {
                 imageUrl: user.photoURL,  // Include the image URL
                 status: "pending",  // Set the status
             };
-
-            const res = await axiosPublic.post('/teachOnClassMaster', requestData)
-                .then((res) => {
-                    if (res.data.insertedId) {
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: 'Request sent.',
-                            showConfirmButton: false,
-                            timer: 1500,
-                        });
-                        navigate('/');
-                    }
-                })
-                .catch((error) => {
-                    console.error('Error saving user info:', error);
-                    Swal.fire({
-                        title: 'Error!',
-                        text: 'Failed to send request. Please try again.',
-                        icon: 'error',
-                        confirmButtonText: 'Close',
-                    });
+    
+            const res = await axiosPublic.post('/teachOnClassMaster', requestData);
+            console.log(res.data);
+            if (res.data.insertResult.insertedId) {
+                reset();
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Request sent.',
+                    showConfirmButton: false,
+                    timer: 1500,
                 });
+    
+                // Trigger refetch of the requestStatus
+                refetch();
+            }
         } catch (error) {
             console.error('Error during submission:', error);
+            Swal.fire({
+                title: 'Error!',
+                text: 'Failed to send request. Please try again.',
+                icon: 'error',
+                confirmButtonText: 'Close',
+            });
         }
     };
-    const { data: userRole, isLoading } = useQuery({
+
+    // resubmit
+    const reSubmit = async (data) => {
+        try {
+            const requestData = {
+                ...data,
+                name: user.displayName,
+                email: user.email,  // Include user email
+                imageUrl: user.photoURL,  // Include the image URL
+                status: "pending",  // Set the status
+            };
+    
+            const res = await axiosPublic.post('/teachOnClassMaster', requestData);
+            // console.log(res.data);
+            if (res.data.updateResult.modifiedCount > 0) {
+                reset();
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Request sent again.',
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+    
+                // Trigger refetch of the requestStatus
+                refetch();
+            }
+        } catch (error) {
+            console.error('Error during submission:', error);
+            Swal.fire({
+                title: 'Error!',
+                text: 'Failed to send request. Please try again.',
+                icon: 'error',
+                confirmButtonText: 'Close',
+            });
+        }
+    };
+
+    const { data: userRole } = useQuery({
         queryKey: ['userRole', user?.email],
         queryFn: async () => {
             const res = await axiosPublic.get(`/userRole?email=${user?.email}`);
@@ -67,17 +105,11 @@ const TeachOnClassMaster = () => {
         },
     });
 
-    if (isLoading) return <div>Loading...</div>;
-
-    // if (userRole === 'teacher') {
-    //     return <div className="p-6">You are already a teacher!</div>;
-    // }
-
     return (
         <div className='bg-[#fef3c7]'>
             <div className='min-h-80 py-10'>
                 {requestStatus === 'pending' && (
-                    <p className="text-center text-yellow-600 font-bold">
+                    <p className="text-center text-yellow-600 text-2xl font-bold">
                         Your request is under review.
                     </p>
                 )}
@@ -104,7 +136,7 @@ const TeachOnClassMaster = () => {
                         <p className="text-red-600 font-bold mb-10">
                             Your request was rejected.
                         </p>
-                        <form onSubmit={handleSubmit(onSubmit)} className="max-w-xl mx-auto p-6 bg-white rounded-lg shadow-md space-y-5">
+                        <form onSubmit={handleSubmit(reSubmit)} className="max-w-xl mx-auto p-6 bg-white rounded-lg shadow-md space-y-5">
                             <div className="flex space-x-4">
                                 <div className="form-control w-full flex-1">
                                     <label className="label">

@@ -24,7 +24,7 @@ const Banner = () => {
                         <img src={banner1} alt="Slide 1" className="w-full h-full object-cover" />
                         <div className="absolute inset-0 bg-black bg-opacity-40"></div>
                         <div className="absolute animate__animated animate__bounce top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[#C6E7FF] text-center font-semibold bg-black bg-opacity-40 px-4 py-2 rounded-lg text-xl sm:text-2xl md:text-3xl lg:text-4xl">
-                            Learn Together, Grow Together
+                            Empowering Learning, One Step at a Time!
                         </div>
                     </div>
                 </SwiperSlide><SwiperSlide>
@@ -32,7 +32,7 @@ const Banner = () => {
                         <img src={banner2} alt="Slide 1" className="w-full h-full object-cover" />
                         <div className="absolute inset-0 bg-black bg-opacity-40"></div>
                         <div className="absolute animate__animated animate__bounce top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[#C6E7FF] text-center font-semibold bg-black bg-opacity-40 px-4 py-2 rounded-lg text-xl sm:text-2xl md:text-3xl lg:text-4xl">
-                            Collaboration Breeds Success
+                            Your Success Starts Here – Let's Begin!
                         </div>
                     </div>
                 </SwiperSlide>
@@ -41,7 +41,7 @@ const Banner = () => {
                         <img src={banner3} alt="Slide 1" className="w-full h-full object-cover" />
                         <div className="absolute inset-0 bg-black bg-opacity-40"></div>
                         <div className="absolute animate__animated animate__bounce top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[#C6E7FF] text-center font-semibold bg-black bg-opacity-40 px-4 py-2 rounded-lg text-xl sm:text-2xl md:text-3xl lg:text-4xl">
-                            Your Study, Our Community
+                            Join the Journey of Growth and Excellence!
                         </div>
                     </div>
                 </SwiperSlide>
@@ -50,7 +50,7 @@ const Banner = () => {
                         <img src={banner4} alt="Slide 1" className="w-full h-full object-cover" />
                         <div className="absolute inset-0 bg-black bg-opacity-40"></div>
                         <div className="absolute animate__animated animate__bounce top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[#C6E7FF] text-center font-semibold bg-black bg-opacity-40 px-4 py-2 rounded-lg text-xl sm:text-2xl md:text-3xl lg:text-4xl">
-                            Your Study, Our Community
+                            Discover, Learn, and Achieve Your Goals!
                         </div>
                     </div>
                 </SwiperSlide>

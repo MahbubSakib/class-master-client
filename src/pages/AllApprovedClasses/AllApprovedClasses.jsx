@@ -15,8 +15,9 @@ const AllApprovedClasses = () => {
     });
 
     return (
-        <div className='my-10 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 w-10/12 mx-auto'>
-            {
+        <div className='bg-background'>
+            <div className='py-10 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 w-10/12 mx-auto min-h-screen'>
+            {allApprovedClasses.length > 0 ?
                 allApprovedClasses.map(item => <div key={item._id} className="card bg-base-100 shadow-xl">
                     <figure>
                         <img
@@ -62,8 +63,10 @@ const AllApprovedClasses = () => {
                             <button className='btn w-full mt-5 bg-primary'>Enroll</button>
                         </Link>
                     </div>
-                </div>)
+                </div>) : 
+                <h2 className='text-2xl font-semibold'>No Classes uploaded Yet</h2>
             }
+        </div>
         </div>
     );
 };

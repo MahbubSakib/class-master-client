@@ -25,6 +25,8 @@ import ClassEnrollDetails from "../pages/ClassEnrollDetails/ClassEnrollDetails";
 import Payment from "../pages/Payment/Payment";
 import MyEnrollClassDetails from "../pages/Dashboard/Student/MyEnrolledClassDetails";
 import StudentProfile from "../pages/Dashboard/Student/StudentProfile";
+import Welcome from "../pages/Dashboard/Welcome";
+import Error404 from "../pages/Error/Error404";
 
 const Router = createBrowserRouter([
     {
@@ -67,6 +69,10 @@ const Router = createBrowserRouter([
         element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
         children: [
             // admin route
+            {
+                path: '/dashboard',
+                element: <PrivateRoute><Welcome></Welcome></PrivateRoute>
+            },
             {
                 path: '/dashboard/teachersRequest',
                 element: <AdminRoute><TeachersRequest></TeachersRequest></AdminRoute>
@@ -117,6 +123,10 @@ const Router = createBrowserRouter([
             },
 
         ]
+    },
+    {
+        path: "*",
+        element: <Error404></Error404>
     }
 ]);
 

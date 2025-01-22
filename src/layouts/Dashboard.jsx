@@ -6,6 +6,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 import useAdmin from '../hooks/useAdmin';
 import useUserRole from '../hooks/useUserRole';
 import { AuthContext } from '../provider/AuthProvider';
+import Welcome from '../pages/Dashboard/Welcome';
 
 const Dashboard = () => {
     const {user} = useContext(AuthContext);
@@ -100,9 +101,7 @@ const Dashboard = () => {
             <div className='flex-1 pl-8 pt-2'>
                 <Outlet>
 
-                </Outlet>
-                <h2 className='text-center pl-8 pt-2 text-4xl font-bold'>Hi! {user.displayName}</h2>
-                 <p className='text-center mt-5 text-xl'>Welcome to Your Dashboard. This is your central hub to efficiently manage all your data and activities.</p>       
+                </Outlet>      
             </div>
         </div>
     );

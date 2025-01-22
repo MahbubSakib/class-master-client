@@ -24,12 +24,25 @@ const MyEnrollClassDetails = () => {
     };
 
     // Handle evaluation submission
+    // Handle evaluation submission
     const handleEvaluationSubmit = async (e) => {
         e.preventDefault();
+
+        if (!rating) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Rating is required. Please provide a rating.',
+                icon: 'error',
+                confirmButtonText: 'Close',
+            });
+            return; // Stop form submission
+        }
 
         const evaluationData = {
             classId,
             studentEmail: user.email,
+            studentName: user.displayName,
+            studentImage: user.photoURL,
             description,
             rating,
         };
@@ -39,7 +52,7 @@ const MyEnrollClassDetails = () => {
             console.log(res.data); // Debug response
 
             if (res.data?.insertedId) {
-                Swal.fire('Success', 'Evaluation submitted successfully!', 'success');
+                Swal.fire('Success', `Evaluation for submitted successfully!`, 'success');
                 setIsModalOpen(false); // Close modal
                 setDescription(''); // Reset fields
                 setRating(0);
@@ -51,6 +64,7 @@ const MyEnrollClassDetails = () => {
             Swal.fire('Error', 'Failed to submit evaluation.', 'error');
         }
     };
+
 
 
     // Open submission modal for assignments
@@ -158,6 +172,11 @@ const MyEnrollClassDetails = () => {
                                     value={rating}
                                     activeColor="#ffd700"
                                 />
+                                {!rating && (
+                                    <p className="text-red-500 text-sm mt-1">
+                                        Rating is required. Please provide a rating.
+                                    </p>
+                                )}
                             </div>
 
                             <div className="flex justify-end">
@@ -173,6 +192,7 @@ const MyEnrollClassDetails = () => {
                                 </button>
                             </div>
                         </form>
+
                     </div>
                 </div>
             )}

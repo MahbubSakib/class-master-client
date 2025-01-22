@@ -8,12 +8,12 @@ const Footer = () => {
                     <aside>
                         <img className="w-20 rounded-full" src={logo} />
                         <p>
-                            ACME Industries Ltd.
+                            Class Master Inc.
                             <br />
-                            Providing reliable tech since 1992
+                            Providing reliable tech since 2025
                         </p>
                     </aside>
-                    <nav>
+                    {/* <nav>
                         <h6 className="footer-title">Services</h6>
                         <div className="flex flex-col space-y-2">
                             <a className="link link-hover">Branding</a>
@@ -21,7 +21,7 @@ const Footer = () => {
                             <a className="link link-hover">Marketing</a>
                             <a className="link link-hover">Advertisement</a>
                         </div>
-                    </nav>
+                    </nav> */}
                     <nav>
                         <h6 className="footer-title">Company</h6>
                         <div className="flex flex-col space-y-2">
