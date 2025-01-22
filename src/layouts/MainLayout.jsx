@@ -9,7 +9,7 @@ const MainLayout = () => {
     return (
         <div>
             <Navbar></Navbar>
-            <div>
+            <div className='pt-16'>
                 <Outlet></Outlet>
             </div>
             {noHeaderFooter || <Footer></Footer>}

@@ -28,8 +28,8 @@ const Navbar = () => {
     }, [theme]);
 
     return (
-        <div className="bg-primary">
-            <div className="navbar shadow-sm text-[#F8F8F8] w-10/12 mx-auto flex items-center justify-between">
+        <div className="bg-primary fixed top-0 left-0 w-full z-50 shadow-md">
+            <div className="navbar text-[#F8F8F8] w-10/12 mx-auto flex items-center justify-between py-3">
                 {/* Logo Section */}
                 <div className="flex-1">
                     <Link to="/" className="flex gap-2 items-center">
