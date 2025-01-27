@@ -7,11 +7,14 @@ import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import loginAnimation from "../../assets/loginAnimation.json";
 import Lottie from "react-lottie";
 import auth from "../../firebase/firebase.init";
+import axios from "axios";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const Login = () => {
     const googleProvider = new GoogleAuthProvider();
     const { login, setUser } = useContext(AuthContext);
     const [error, setError] = useState('');
+    const axiosPublic = useAxiosPublic();
     const location = useLocation();
     const navigate = useNavigate();
     const emailRef = useRef();
@@ -57,27 +60,53 @@ const Login = () => {
 
     const handleGoogleLogin = () => {
         signInWithPopup(auth, googleProvider)
-            .then(result => {
+            .then(async (result) => {
                 const user = result.user;
-                setUser(user);
-                Swal.fire({
-                    title: 'Logged in!',
-                    text: 'Successfully logged in',
-                    icon: 'success',
-                    confirmButtonText: 'Close'
-                })
-                navigate(location?.state ? location.state : '/');
+
+                // Prepare the user data to send to the backend
+                const newUser = {
+                    name: user.displayName,
+                    email: user.email,
+                    photo: user.photoURL,
+                    role: 'student'
+                };
+
+                try {
+                    // Save user to the backend
+                    const response = await axiosPublic.post('/users', newUser);
+
+                    if (response.data.insertedId || response.data.existingUser) {
+                        setUser(user); // Update user state
+                        Swal.fire({
+                            title: 'Logged in!',
+                            text: 'Successfully logged in',
+                            icon: 'success',
+                            confirmButtonText: 'Close',
+                        });
+                        navigate(location?.state ? location.state : '/'); // Redirect
+                    }
+                } catch (error) {
+                    console.error('Error saving user to backend:', error);
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Failed to log in. Please try again.',
+                        icon: 'error',
+                        confirmButtonText: 'Close',
+                    });
+                }
             })
-            .catch(err => {
-                setError(err.message);
+            .catch((err) => {
+                setError(err.message); // Update error state
                 Swal.fire({
                     title: 'Error!',
                     text: 'Please check your credentials',
                     icon: 'error',
-                    confirmButtonText: 'Close'
-                })
+                    confirmButtonText: 'Close',
+                });
             });
     };
+
+
 
     return (
         <div className="bg-[#F8F8F8] text-[#4A4A4A] min-h-screen flex items-center justify-center">

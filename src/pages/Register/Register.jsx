@@ -106,19 +106,17 @@ const Register = () => {
             .then((result) => {
                 const loggedUser = result.user;
                 console.log(loggedUser);
-
-                // Prepare user info to save in the database
+    
                 const userInfo = {
                     name: loggedUser.displayName || 'Google User',
                     email: loggedUser.email,
                     photo: loggedUser.photoURL || '',
                     role: 'student'
                 };
-
-                // Save user info to the /users endpoint
+    
                 axiosPublic.post('/users', userInfo)
                     .then((res) => {
-                        if (res.data.insertedId) {
+                        if (res.data.insertedId || res.data.message === 'user already exist') {
                             Swal.fire({
                                 position: "top-end",
                                 icon: "success",
@@ -148,8 +146,8 @@ const Register = () => {
                     confirmButtonText: 'Close'
                 });
             });
-    };
-
+    };    
+    
 
     return (
         <div className="bg-[#F8F8F8] text-[#4A4A4A] min-h-screen flex items-center justify-center">

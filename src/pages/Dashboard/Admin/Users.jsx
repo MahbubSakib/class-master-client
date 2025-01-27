@@ -6,6 +6,8 @@ import Swal from 'sweetalert2';
 const Users = () => {
     const axiosSecure = useAxiosSecure();
     const [searchQuery, setSearchQuery] = useState('');
+    const [currentPage, setCurrentPage] = useState(1); // Track the current page
+    const itemsPerPage = 6; // Number of items per page
 
     const { data: users = [], refetch } = useQuery({
         queryKey: ['users', searchQuery],
@@ -28,7 +30,7 @@ const Users = () => {
         refetch(); // Trigger re-fetch with the updated query
     };
 
-    const handleMakeAdmin = user => {
+    const handleMakeAdmin = (user) => {
         Swal.fire({
             title: "Are you sure?",
             text: "You want to assign this user as admin. This action cannot be undone!",
@@ -40,8 +42,7 @@ const Users = () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 axiosSecure.patch(`/users/admin/${user._id}`)
-                    .then(res => {
-                        console.log(res.data);
+                    .then((res) => {
                         if (res.data.modifiedCount > 0) {
                             refetch();
                             Swal.fire({
@@ -53,7 +54,7 @@ const Users = () => {
                             });
                         }
                     })
-                    .catch(err => {
+                    .catch(() => {
                         Swal.fire({
                             title: "Error!",
                             text: "There was an issue while making this user an admin.",
@@ -62,7 +63,18 @@ const Users = () => {
                     });
             }
         });
-    }
+    };
+
+    // Pagination Logic
+    const totalItems = users.length;
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const currentItems = users.slice(startIndex, endIndex);
+
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
 
     return (
         <div>
@@ -73,7 +85,7 @@ const Users = () => {
             <div className="mb-4">
                 <input
                     type="text"
-                    placeholder="Search by name or email"
+                    placeholder="Search by name"
                     value={searchQuery}
                     onChange={handleSearch}
                     className="border p-2 rounded-lg"
@@ -82,7 +94,6 @@ const Users = () => {
             <div>
                 <div className="overflow-x-auto">
                     <table className="table table-zebra">
-                        {/* head */}
                         <thead>
                             <tr>
                                 <th></th>
@@ -93,9 +104,9 @@ const Users = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {users.map((user, index) => (
+                            {currentItems.map((user, index) => (
                                 <tr key={user._id}>
-                                    <th>{index + 1}</th>
+                                    <th>{startIndex + index + 1}</th>
                                     <td>{user.name}</td>
                                     <td>{user.email}</td>
                                     <td>
@@ -128,6 +139,21 @@ const Users = () => {
                     </table>
                 </div>
             </div>
+
+            {/* Pagination Controls */}
+            {totalPages > 1 && (
+                <div className="flex justify-center mt-5 space-x-2">
+                    {Array.from({ length: totalPages }, (_, index) => (
+                        <button
+                            key={index}
+                            onClick={() => handlePageChange(index + 1)}
+                            className={`btn ${currentPage === index + 1 ? 'btn-primary' : 'btn-outline'}`}
+                        >
+                            {index + 1}
+                        </button>
+                    ))}
+                </div>
+            )}
         </div>
     );
 };
