@@ -1,6 +1,6 @@
 # **Class Master**
 
-Welcome to **Class Master**, a platform for learning and teaching. This website provides students and educators with an intuitive and interactive experience to enhance education.
+Welcome to **Class Master**, an intuitive platform designed for seamless learning and teaching. Our website empowers students and educators with interactive features to enhance education.
 
 ---
 
@@ -16,41 +16,42 @@ Welcome to **Class Master**, a platform for learning and teaching. This website 
 ---
 
 ## **Features**
-1. **User Authentication**:
-   - Secure login and registration for users.
-   - Role-based access for Admin, Teachers, and Students.
 
-2. **Class Management**:
-   - Admins can approve or reject class requests.
-   - Teachers can create and manage classes.
+### **User Management**
+- Secure authentication for Admins, Teachers, and Students.
+- Role-based access control for enhanced security.
 
-3. **Student Enrollment**:
-   - Students can browse and enroll in approved classes with ease.
+### **Class Management**
+- Admins can approve or reject class requests.
+- Teachers can create and manage classes effortlessly.
 
-4. **Feedback System**:
-   - Students can provide feedback with ratings for each class.
-   - Feedback is displayed dynamically with average ratings.
+### **Student Enrollment**
+- Students can browse and enroll in approved classes with ease.
 
-5. **Assignments and Submissions**:
-   - Teachers can add assignments to classes.
-   - Students can submit assignments with tracking of submission deadlines.
+### **Feedback System**
+- Students can provide ratings and feedback for each class.
+- Dynamic display of feedback with average ratings.
 
-6. **Dynamic Dashboard**:
-   - Personalized dashboards for Admin, Teachers, and Students.
-   - Quick insights into total enrollments, submissions, and assignments.
+### **Assignments and Submissions**
+- Teachers can add assignments for classes.
+- Students can submit assignments with deadline tracking.
 
-7. **Payment Integration**:
-   - Secure payment system for class enrollment (Stripe).
+### **Dynamic Dashboard**
+- Personalized dashboards for Admins, Teachers, and Students.
+- Insights into total enrollments, submissions, and assignments.
 
-8. **Class Details**:
-   - Each class has a detailed view with descriptions, price, and teacher information.
+### **Payment Integration**
+- Secure payment system powered by **Stripe**.
 
-9. **Responsive Design**:
-   - Fully responsive across all devices for a seamless user experience.
+### **Class Details**
+- Detailed view with descriptions, pricing, and teacher information.
 
-10. **Contact and About Pages**:
-    - Clear and professional information about the website.
-    - Contact page with email, phone number, and social media links.
+### **Responsive Design**
+- Fully optimized for all devices to ensure a seamless user experience.
+
+### **Contact & About Pages**
+- Professional details about the website.
+- Contact page with email, phone, and social media links.
 
 ---
 
@@ -59,7 +60,60 @@ Welcome to **Class Master**, a platform for learning and teaching. This website 
 - **Backend:** Express.js
 - **Database:** MongoDB
 - **Authentication:** Firebase Authentication
-- **Deployment:** 
+- **Deployment:**
   - Frontend: Firebase
   - Backend: Vercel
 
+---
+
+## **Installation Guide (Run Locally)**
+
+### **Prerequisites**
+Ensure you have the following installed on your system:
+- **Node.js** (Latest LTS version recommended)
+- **Git**
+- **Firebase CLI** (For Firebase Authentication and Hosting)
+
+### **Steps to Run Locally**
+
+1. **Clone the Repository:**
+   ```sh
+   git clone https://github.com/your-username/class-master.git
+   cd class-master
+   ```
+
+2. **Install Dependencies:**
+   ```sh
+   npm install
+   ```
+
+3. **Set Up Environment Variables:**
+   - Create a `.env` file in the root directory.
+   - Add Firebase and database credentials accordingly.
+
+4. **Start the Development Server:**
+   ```sh
+   npm run dev
+   ```
+
+5. **Backend Setup:**
+   - Navigate to the backend folder:
+     ```sh
+     cd backend
+     ```
+   - Install backend dependencies:
+     ```sh
+     npm install
+     ```
+   - Start the backend server:
+     ```sh
+     npm start
+     ```
+
+6. **Access the Application:**
+   - Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+---
+
+## **Contributing**
+We welcome contributions! Feel free to submit a pull request or open an issue for improvements and bug fixes.
