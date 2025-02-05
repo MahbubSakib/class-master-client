@@ -112,8 +112,3 @@ Ensure you have the following installed on your system:
 
 6. **Access the Application:**
    - Open [http://localhost:5173](http://localhost:5173) in your browser.
-
----
-
-## **Contributing**
-We welcome contributions! Feel free to submit a pull request or open an issue for improvements and bug fixes.
